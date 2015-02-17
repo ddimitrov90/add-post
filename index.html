@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="blogApp">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Add new post</title>
+		<meta name="description" content="add new post to jeina's blog">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
+		<link rel="stylesheet" href="css/textAngular.css" type="text/css" media="all">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="http://bs-static.cdn.telerik.com/1.0.0/everlive.images.min.js" type="text/javascript"></script>
+		<script src="https://bs-static.cdn.telerik.com/1.2.5/everlive.all.min.js" type="text/javascript"></script>
+		<script src="lib/angular.js" type="text/javascript"></script>
+		<script src="lib/angular-route.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.js"></script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
+
+		<script src="app.js" type="text/javascript"></script>
+		<script src="js/components/everlive-service/everlive-service.js" type="text/javascript"></script>
+	</head>
+	<body ng-controller="MainCtrl">
+		Title
+		<input type="textbox" ng-model="newPost.Title" /><br />
+		Url
+		<input type="textbox" ng-model="newPost.Url" /> <br />
+		Summary
+		<input type="textbox" ng-model="newPost.Summary" /> <br />
+		Archive
+		<input type="textbox" ng-model="newPost.Archive" /> <br />
+		Author
+		<input type="textbox" ng-model="newPost.Author" /> <br />
+		Tags ( , separated)
+		<input type="textbox" ng-model="tags" /> <br />
+		Content
+		<div text-angular="text-angular" name="Content" ng-model="newPost.Content"></div><br />
+		<input type="button" value="add" ng-click="submitPost()" /><br /><br />
+		save post
+		<input type="text" ng-model="savePostId" />
+		<input type="button" value="save" ng-click="savePost()" />
+		<input type="button" value="load" ng-click="loadPost()" />
+	</body>
+</html>

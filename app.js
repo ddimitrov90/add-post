@@ -14,24 +14,29 @@ config(['$routeProvider', '$locationProvider',
 app.controller('MainCtrl', function($scope, EverliveService) {
     $scope.newPost = {};
     $scope.submitPost = function() {
-        var tags = $scope.tags.split(',');
-        $scope.newPost.Tags = tags;
-        $scope.newPost.Date = new Date();
-        EverliveService.addNewBlogPost($scope.newPost).then(
-	        function(result) { 
-	              console.log(result);
-	        },
-        	function() {
-      		}
-      	);
+
+        EverliveService.login($scope.username, $scope.password).then(
+            function(result) {
+                var tags = $scope.tags.split(',');
+                $scope.newPost.Tags = tags;
+                $scope.newPost.Date = new Date();
+                EverliveService.addNewBlogPost($scope.newPost).then(
+                    function(result) {
+                        console.log(result);
+                    },
+                    function() {}
+                );
+            },
+            function() {}
+        );
     };
 
-    $scope.savePost = function(){
-    	localStorage.setItem($scope.savePostId, JSON.stringify($scope.newPost));
+    $scope.savePost = function() {
+        localStorage.setItem($scope.savePostId, JSON.stringify($scope.newPost));
     };
 
-    $scope.loadPost = function(){
-    	var savedPost = JSON.parse(localStorage.getItem($scope.savePostId));
-    	$scope.newPost = savedPost;
+    $scope.loadPost = function() {
+        var savedPost = JSON.parse(localStorage.getItem($scope.savePostId));
+        $scope.newPost = savedPost;
     };
 });

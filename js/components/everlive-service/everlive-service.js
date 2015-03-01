@@ -2,9 +2,22 @@
     var blogAppServices = angular.module('blogApp.services', []);
     blogAppServices.service('EverliveService', function($q) {
         var self = this;
-        var el = new Everlive('fW5fEkhhplSXgaCS');
+        var el = new Everlive({ apiKey: 'fW5fEkhhplSXgaCS', scheme: 'https' });
         var blogPostData = el.data('BlogPost');
         var tagsData = el.data('Tags');
+
+        this.login = function login(username, password){
+            var deferred = $q.defer();
+            el.Users.login(username,
+                password, 
+                function (data) {
+                    deferred.resolve(data.result);
+                },
+                function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
 
         this.getBlogPosts = function getBlogPosts(count) {
             if (!count) {

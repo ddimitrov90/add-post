@@ -1,0 +1,44 @@
+
+/*General styles*/
+
+body {
+	background-color: #ebe7e0;
+}
+
+.newPost {
+	padding: 30px;
+	margin: 20px 0;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+}
+
+/* Editor styling */
+.ta-editor {
+  min-height: 500px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+.ta-toolbar {
+	background-color: #f0f0f0;
+	margin-left: 0px; /* Override bootstrap */
+	padding: 10px 10px 5px;
+	border: 1px solid #f0f0f0;
+}
+
+.ta-toolbar .btn-group {
+	margin-bottom: 5px;
+}
+
+.ta-editor, .white-box {
+	padding: 10px;
+	background-color: #FFF;
+	border: 1px solid #f0f0f0;
+}
+
+textarea.ta-bind {
+	width: 100%;
+}

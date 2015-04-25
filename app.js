@@ -16,18 +16,23 @@ app.controller('MainCtrl', function($scope, EverliveService) {
     $scope.submitPost = function() {
 
         EverliveService.login($scope.username, $scope.password).then(
-            function(result) {
+            function() {
                 var tags = $scope.tags.split(',');
                 $scope.newPost.Tags = tags;
                 $scope.newPost.Date = new Date();
                 EverliveService.addNewBlogPost($scope.newPost).then(
-                    function(result) {
-                        console.log(result);
+                    function() {
+                        EverliveService.updateTagsCounter($scope.newPost.Tags).then(
+                            function() {
+                                
+                            },
+                            function() {} // error inc tags
+                        );
                     },
-                    function() {}
+                    function() {} // error adding new blog post
                 );
             },
-            function() {}
+            function() {} // error login
         );
     };
 

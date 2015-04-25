@@ -2,21 +2,50 @@
     var blogAppServices = angular.module('blogApp.services', []);
     blogAppServices.service('EverliveService', function($q) {
         var self = this;
-        var el = new Everlive({ apiKey: 'fW5fEkhhplSXgaCS', scheme: 'https' });
+        var el = new Everlive({
+            apiKey: 'la2ryjFXLtQcEEUP',
+            scheme: 'https'
+        });
         var blogPostData = el.data('BlogPost');
         var tagsData = el.data('Tags');
 
-        this.login = function login(username, password){
+        this.login = function login(username, password) {
             var deferred = $q.defer();
             el.Users.login(username,
-                password, 
-                function (data) {
+                password,
+                function(data) {
                     deferred.resolve(data.result);
                 },
-                function(error){
+                function(error) {
                     deferred.reject(error);
                 });
             return deferred.promise;
+        };
+
+        this.updateTagsCounter = function updateTagsCounter(tags) {
+            var deferred = $q.defer();
+
+            for (var i = 0; i < tags.length; i++) {
+                var currentTag = tags[i];
+                var inc = {};
+                inc['Counter'] = 1;
+
+                var attributes = {
+                    '$inc': inc
+                };
+
+                var filter = {
+                    'Name': currentTag
+                };
+
+                tagsData.rawUpdate(attributes, filter,
+                    function(data) {
+                        deferred.resolve(data.result);
+                    },
+                    function(error) {
+                        deferred.reject(error);
+                    });
+            };
         };
 
         this.getBlogPosts = function getBlogPosts(count) {
@@ -62,7 +91,9 @@
 
         this.getBlogPostByTag = function getBlogPostByTag(tag) {
             var query = new Everlive.Query();
-            query.where({Tags: tag}).orderDesc('Date');
+            query.where({
+                Tags: tag
+            }).orderDesc('Date');
 
             var deferred = $q.defer();
             blogPostData.get(query).then(function(data) { 

@@ -12,6 +12,8 @@ config(['$routeProvider', '$locationProvider',
 ]);
 
 app.controller('MainCtrl', function($scope, EverliveService) {
+    $scope.operationMsg = '';
+    $scope.showOpMsg = false;
     $scope.newPost = {};
     $scope.submitPost = function() {
 
@@ -24,16 +26,22 @@ app.controller('MainCtrl', function($scope, EverliveService) {
                     function() {
                         EverliveService.updateTagsCounter($scope.newPost.Tags).then(
                             function() {
-                                
+                                $scope.operationMsg = 'Success!';
+                                $scope.showOpMsg = true;
                             },
-                            function() {} // error inc tags
+                            $scope.showErrorMsg // error inc tags
                         );
                     },
-                    function() {} // error adding new blog post
+                    $scope.showErrorMsg// error adding new blog post
                 );
             },
-            function() {} // error login
+            $scope.showErrorMsg // error login
         );
+    };
+
+    $scope.showErrorMsg = function(err){
+        $scope.operationMsg = err.message;
+        $scope.showOpMsg = true;
     };
 
     $scope.savePost = function() {

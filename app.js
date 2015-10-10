@@ -19,8 +19,10 @@ app.controller('MainCtrl', function($scope, EverliveService) {
 
         EverliveService.login($scope.username, $scope.password).then(
             function() {
-                var tags = $scope.tags.split(',');
-                $scope.newPost.Tags = tags;
+                if($scope.tags){
+                    var tags = $scope.tags.split(',');
+                    $scope.newPost.Tags = tags;
+                }
                 $scope.newPost.Date = new Date();
                 EverliveService.addNewBlogPost($scope.newPost).then(
                     function() {
